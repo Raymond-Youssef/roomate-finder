@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+route::get('/test', function() {
+    Artisan::call('migrate');
+    return response()->json(['message' => 'Cache cleared successfully!']);
+})
