@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::apiResource('users', App\Http\Controllers\UserController::class);
+Route::apiResource('apartments', App\Http\Controllers\ApartmentController::class);
+Route::apiResource('bookings', App\Http\Controllers\BookingController::class);
+
+// Auth routes
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::get('profile', [AuthController::class, 'profile']);
 });
